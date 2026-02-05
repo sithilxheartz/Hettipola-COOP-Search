@@ -47,7 +47,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-100 p-8 font-sans">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-gray-800">
-          Customer Database Search
+          හෙට්ටිපොල Database Search
         </h1>
 
         {/* Search Input */}
