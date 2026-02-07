@@ -13,7 +13,6 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Load data
   useEffect(() => {
     fetch("/customers.json")
       .then((res) => res.json())
@@ -27,31 +26,29 @@ export default function Home() {
       });
   }, []);
 
-  // Search Logic (Updated to include Address)
+  // Search Logic (Updated: ONLY Name and Address)
   const filteredData = data.filter((customer) => {
     if (search === "") return false;
     const searchLower = search.toLowerCase();
     
-    // Check if search term exists in Name, ID, NIC, OR Address
+    // Check ONLY Name or Address
     const nameMatch = customer.name && String(customer.name).toLowerCase().includes(searchLower);
-    const idMatch = customer.id && String(customer.id).toLowerCase().includes(searchLower);
-    const nicMatch = customer.nic && String(customer.nic).toLowerCase().includes(searchLower);
     const addressMatch = customer.address && String(customer.address).toLowerCase().includes(searchLower);
 
-    return nameMatch || idMatch || nicMatch || addressMatch;
+    return nameMatch || addressMatch;
   });
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-8 font-sans">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800 text-center md:text-left">
-          Hettipola Vote List
+          Hettipola Search
         </h1>
 
         {/* Search Input - Updated Placeholder */}
         <input
           type="text"
-          placeholder="Search Name, ID, NIC, or Address..."
+          placeholder="Search Name or Address..."
           className="w-full p-3 md:p-4 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 outline-none text-base md:text-lg mb-6 text-black"
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -119,7 +116,7 @@ export default function Home() {
             
             {search === "" && (
                 <div className="p-10 text-center text-gray-400">
-                   Type a Name, Address, or ID to start searching
+                   Type a Name or Address to start searching
                 </div>
             )}
           </>
