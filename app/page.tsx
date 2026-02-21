@@ -26,30 +26,31 @@ export default function Home() {
       });
   }, []);
 
-  // Search Logic (Updated: Name, Address, and NIC)
+  // Search Logic (Updated: Name, Address, ID, and NIC)
   const filteredData = data.filter((customer) => {
     if (search === "") return false;
     const searchLower = search.toLowerCase();
     
-    // Check Name, Address, OR NIC
+    // Check Name, Address, ID, OR NIC
     const nameMatch = customer.name && String(customer.name).toLowerCase().includes(searchLower);
     const addressMatch = customer.address && String(customer.address).toLowerCase().includes(searchLower);
+    const idMatch = customer.id && String(customer.id).toLowerCase().includes(searchLower);
     const nicMatch = customer.nic && String(customer.nic).toLowerCase().includes(searchLower);
 
-    return nameMatch || addressMatch || nicMatch;
+    return nameMatch || addressMatch || idMatch || nicMatch;
   });
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-8 font-sans">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800 text-center md:text-left">
-          Hettipola Vote List
+            Hettipola Vote Search
         </h1>
 
         {/* Search Input - Updated Placeholder */}
         <input
           type="text"
-          placeholder="Search Name, Address, or NIC..."
+          placeholder="Search Name, Address, ID, or NIC..."
           className="w-full p-3 md:p-4 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 outline-none text-base md:text-lg mb-6 text-black"
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -117,7 +118,7 @@ export default function Home() {
             
             {search === "" && (
                 <div className="p-10 text-center text-gray-400">
-                   Type a Name, Address, or NIC to start searching
+                   Type a Name, Address, ID, or NIC to start searching
                 </div>
             )}
           </>
